@@ -24,6 +24,8 @@ class BitList:
         self.buffer = 0
         self.b_offset = 0
         self.data = [] if source_data is None else list(source_data)
+    def is_empty(self):
+        return self.b_offset == 0 and len(self.data) == 0
     def push_bits(self, bits: int, count: int) -> None:
         remaining_to_flush = 8 - self.b_offset
         if count > remaining_to_flush:
@@ -58,10 +60,11 @@ class BitList:
                 output <<= 8
                 output |= self.data.pop(0)
                 count -= 8
-            output <<= count
-            self.buffer = self.data.pop(0)
-            self.b_offset = 8 - count
-            output |= (self.buffer >> (8 - count)) & ((1 << count) - 1)
+            if count > 0:
+                output <<= count
+                self.buffer = self.data.pop(0)
+                self.b_offset = 8 - count
+                output |= (self.buffer >> (8 - count)) & ((1 << count) - 1)
         else:
             if self.b_offset == 0:
                 self.b_offset = 8
@@ -108,6 +111,8 @@ def image_from_bitmap(bitmap: bytes, bmpinfo: BitmapDescription) -> Image.Image:
             t = thresholds[bl.pop_bits(bmpinfo.bits_per_pixel)]
             image.putpixel((x, y), (t, t, t))
         bl.pop_bits((bmpinfo.width_px_align - bmpinfo.width) * bmpinfo.bits_per_pixel)
+    bl.pop_bits((bmpinfo.height_px_align - bmpinfo.height) * bmpinfo.width_px_align * bmpinfo.bits_per_pixel)
+    assert bl.is_empty()
     return image
 
 def default_main(config_class, validator, encoder, decoder) -> None:

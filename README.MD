@@ -5,7 +5,7 @@ This project aims to make it possible to create or edit existing NWM screensaver
 Currently supported formats:
 
 - NW-A1000 (0xD301)
-- NW-E500 (0xEC01) - BITMAP TRANSLATION LOGIC ONLY!
+- NW-E500 (0xEC01) - UNTESTED
 
 ## Contributing
 

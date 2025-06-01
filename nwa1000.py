@@ -68,6 +68,8 @@ def _decode(input_file: str, output_dir: str) -> None:
             if (fr & 0xff) != 0x10: raise BaseException("Format error!")
             fr >>= 8
             frames.append(fr)
+        if frame_count*2 & 0x0f:
+            inp.read(16 - (frame_count*2 & 0xf))
         bitmaps = []
         for bmp in range(bitmap_count):
             bitmaps.append(f'bitmaps/{bmp:02d}.png')

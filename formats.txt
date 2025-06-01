@@ -1,0 +1,33 @@
+Imhex scheme for NW-A1000 NWM file:
+
+#pragma endian big
+
+struct MainHeader {
+    u16 magic;
+    u16 frameCount;
+    u16 bitmapCount;
+    u16 thumbnailFrames;
+    u16 dataAreaStart;
+};
+
+// 1 byte - 4px - 6400 pixels in total.
+// 80x80px.
+struct Bitmap {
+    u8 data[0x640];
+};
+
+// 18x18 thumbnail. Assume 20x18 (px cut off).
+struct ThumbnailLine {
+    u8 data[5];
+};
+
+MainHeader header@$;
+u16 thumbnailDataSize = 18;// 0x1e - in the firmware. Probably a bug?
+ThumbnailLine thumbnailLines[thumbnailDataSize]@header.dataAreaStart;
+
+// header.frameCount alings to 16.
+
+u16 frameDataStart = header.dataAreaStart + 0x5a;
+if(frameDataStart & 15) frameDataStart += 16 - (frameDataStart & 15);
+u16 frameData[header.frameCount]@frameDataStart;
+Bitmap bitmapData[header.bitmapCount]@$;

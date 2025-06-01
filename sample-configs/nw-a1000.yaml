@@ -1,0 +1,4 @@
+bitmaps:
+  - frame.png
+thumbnail: thumb.png
+frames: [0, 0, 0, 0, 0, 0, 0, 0, 0]

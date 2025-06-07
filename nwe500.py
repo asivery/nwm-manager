@@ -71,7 +71,7 @@ def _decode(input_file: str, output_dir: str) -> None:
     with open(input_file, 'rb') as inp:
         def short():
             return int.from_bytes(inp.read(2), 'big')
-        if short() != 0xEC01: raise BaseException("Not a valid NW-A1000 screensaver file!")
+        if short() != 0xEC01: raise BaseException("Not a valid NW-E500 screensaver file!")
         frame_count = short()
         bitmap_count = short()
         short() # data offset

@@ -6,6 +6,7 @@ Currently supported formats:
 
 - NW-A1000 (0xD301)
 - NW-E500 (0xEC01) - UNTESTED
+- NW-E002 / NW-S20xF (0xEC02)
 
 ## Contributing
 

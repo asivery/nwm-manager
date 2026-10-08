@@ -9,4 +9,4 @@ Currently supported formats:
 
 ## Contributing
 
-Any and all contributions are welcome. If you want to add support for your device, please refer to the NW-A1000's code to see how to do it. The walkmans' format should be rather similar. All versions should use the 'frames' and 'bitmaps' config keys. Other fields can change.
+Any and all contributions are welcome (as long as they are not AI). If you want to add support for your device, please refer to the NW-A1000's code to see how to do it. The walkmans' format should be rather similar. All versions should use the 'frames' and 'bitmaps' config keys. Other fields can change.
